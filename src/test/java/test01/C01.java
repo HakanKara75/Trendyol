@@ -1,12 +1,12 @@
 package test01;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import utilities.TestBase;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,12 +14,14 @@ import static org.junit.Assert.assertTrue;
 public class C01 extends TestBase {
 /*
    "https://www.trendyol.com/" sitesine git
+   sayfanin handle degerini al
 Erkek menusu ustune git
  //saat menüsüne tıkla
-        //Daniel Klein ve Alizee saatlerini sec, secildigini test et
+      Casio, Daniel Klein ve Alizee saatlerini sec
         //Doliche ve Longines'in secili olmadigini test et
         //ayakkabi/canta menusune git
         //erkek spor ayakkabi'yi yeni pencerede ac
+        //onceki pencereye don ve ilk pencerede oldugunu test et
  */
 
     @Test
@@ -34,6 +36,9 @@ Erkek menusu ustune git
 
         }
 
+        //sayfanin handle degerini al
+        String ilkSayfa=driver.getWindowHandle();
+
         //Erkek menusu ustune git
         Actions actions = new Actions(driver);
         WebElement webElement = driver.findElement(By.xpath("//a[@href='/butik/liste/2/erkek']"));
@@ -43,21 +48,18 @@ Erkek menusu ustune git
         //saat menüsüne tıkla
         driver.findElement(By.xpath("//a[@href='/erkek-saat-x-g2-c34']")).click();
 
-        //Daniel Klein ve Alizee saatlerini sec, secildigini test et
-//        WebElement casio = findXpathWebelement("//div[text()='Casio']");
-//        casio.click();
-//        threadSleep(2);
-//        assertTrue(casio.isSelected());
 
-//        WebElement guess = findXpathWebelement("//div[text()='Guess']");
-//        guess.click();
-//        threadSleep(2);
-//        assertTrue(guess.isSelected());
+//        Casio, Daniel Klein ve Alizee saatlerini sec
+        WebElement casio = findXpathWebelement("//div[text()='Casio']");
+        casio.click();
+        threadSleep(2);
+
+        WebElement saatMenu = findXpathWebelement("//div[@class='ReactVirtualized__Grid__innerScrollContainer']");
+        scrollIntoViewByJavaScript(saatMenu);
 
         WebElement danileKlein = findXpathWebelement("//div[text()='Daniel Klein']");
         danileKlein.click();
         threadSleep(2);
-        assertTrue(danileKlein.isSelected());
 
         List<WebElement> list = driver.findElements(By.xpath("(//div[@class='ReactVirtualized__Grid__innerScrollContainer'])[2]"));
 
@@ -91,10 +93,17 @@ Erkek menusu ustune git
         actions.scrollToElement(ayakkabi).perform();
 
         //erkek spor ayakkabi'yi yeni pencerede ac
-        WebElement erkek = driver.findElement(By.xpath("//a[@href='/butik/liste/2/erkek']"));
-        actions.moveToElement(erkek).perform();
-        driver.findElement(By.xpath("(//a[@href='/erkek-spor-ayakkabi-x-g2-c109'])[1]")).click();
-        threadSleep(2);
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.get("https://www.trendyol.com/erkek-spor-ayakkabi-x-g2-c109");
+        String ikinciSayfa=driver.getWindowHandle();
+
+//onceki pencereye don ve ilk pencerede oldugunu test et
+        Set<String> element=driver.getWindowHandles();
+
+               window(0);
+
+
+                   assertFalse(ilkSayfa.equals(ikinciSayfa));
 
     }
 }

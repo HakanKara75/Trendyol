@@ -6,6 +6,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -210,7 +211,22 @@ import static org.junit.Assert.assertTrue;
 //             document.querySelector(".example").value; -> CSS DEGERI KULLANILABILIR
 //             document.querySelector("#example").value; -> CSS DEGERI KULLANILABILIR
         }
+public void moveToElement(String str){
+    Actions actions = new Actions(driver);
+    WebElement webElement = driver.findElement(By.xpath(str));
+    actions.moveToElement(webElement).perform();
+}
+public void assertTrueIsDisplayed(WebElement webElement){
+    Assert.assertTrue(webElement.isDisplayed());
+}
 
+       public void assertTrueIsSelected(WebElement webElement){
+           Assert.assertTrue(webElement.isSelected());
+       }
+
+       public void assertTrueIsEnabled(WebElement webElement){
+           Assert.assertTrue(webElement.isEnabled());
+       }
     }
 
 
