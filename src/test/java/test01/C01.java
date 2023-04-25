@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import utilities.TestBase;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ Erkek menusu ustune git
  */
 
     @Test
-    public void test() throws InterruptedException {
+    public void test() throws InterruptedException, AWTException {
 
         //"https://www.trendyol.com/" sitesine git
         driver.get("https://www.trendyol.com/");
@@ -48,24 +49,25 @@ Erkek menusu ustune git
         //saat menüsüne tıkla
         driver.findElement(By.xpath("//a[@href='/erkek-saat-x-g2-c34']")).click();
 
-
 //        Casio, Daniel Klein ve Alizee saatlerini sec
         WebElement casio = findXpathWebelement("//div[text()='Casio']");
         casio.click();
-        threadSleep(2);
+
 
         WebElement saatMenu = findXpathWebelement("//div[@class='ReactVirtualized__Grid__innerScrollContainer']");
         scrollIntoViewByJavaScript(saatMenu);
 
         WebElement danileKlein = findXpathWebelement("//div[text()='Daniel Klein']");
         danileKlein.click();
-        threadSleep(2);
+
 
         List<WebElement> list = driver.findElements(By.xpath("(//div[@class='ReactVirtualized__Grid__innerScrollContainer'])[2]"));
 
         for (WebElement w : list) {
             if (w.getText().contains("Alizee")) {
+                actions.scrollToElement(w).perform();
                 w.click();
+
                 WebElement alizee = w;
                 assertTrue(alizee.isSelected());
             }
