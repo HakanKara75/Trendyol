@@ -1,0 +1,90 @@
+package test01;
+
+import com.github.javafaker.Faker;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import utilities.TestBase;
+
+public class C05_Teslimat_Adresi extends TestBase {
+    //   "https://www.trendyol.com/" sitesine git
+    //Giris menusu ustune git
+    //menunun acildigini dogrula
+    //uyelik bilgilerini gir
+    //supermarket menusu ustune git
+
+    @Test
+    public void name() {
+        extentTest = extentReports.createTest("ExtentTest", "Trendyol Uyelik Test Raporu");
+        //   "https://www.trendyol.com/" sitesine git
+        driver.get("https://www.trendyol.com/");
+        extentTest.info("Trendyol sayfasına gidildi");
+        try {
+            driver.findElement(By.id("Rating-Review")).click();
+            driver.findElement(By.id("rejectAllButton")).click();
+        } catch (Exception e) {
+
+        }
+
+        //Giris menusu ustune git
+        moveToElement("//p[text()='Giriş Yap']");
+        extentTest.info("Giris menusu ustune gidildi ");
+
+        //menunun acildigini dogrula
+        WebElement menu = findXpathWebelement("//div[@class='login-button']");
+        assertTrueIsDisplayed(menu);
+        menu.click();
+        extentTest.info("menunun acildigi dogrulandi");
+
+        //uyelik bilgilerini gir
+        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("sssssss@gmail.com");
+        webElementSendKeys("//input[@id='login-password-input']", ",ssssss");
+        threadSleep(3);
+        findByXpathClick("//button[@class='q-primary q-fluid q-button-medium q-button submit']");
+        extentTest.info("Uyelik bilgileri girildi");
+
+        //supermarket menusu ustune git
+        threadSleep(2);
+        moveToElement("//a[@href='/butik/liste/16/supermarket']");
+        extentTest.info("supermarket menusu ustune gidildi");
+
+        //kedi mamasini tikla
+        findByXpathClick("//a[@href='/kedi-mamasi-x-c103588']");
+        extentTest.info("kedi mamasi tiklandi");
+
+        //altinci urunden 5 tane sepete ekle
+        scrollToElement("(//div[@class='add-to-bs-tx'])[6]");
+        for (int i = 1; i <6 ; i++) {
+            threadSleep(2);
+            findByXpathClick("(//div[@class='add-to-bs-tx'])[6]");
+        }
+
+        extentTest.info("altinci urunden 5 tane sepete eklendi");
+
+        //sepete tikla
+        scrollTopByJavaScript();
+        findByXpathClick("//a[@class='link account-basket']");
+        extentTest.info("sepete tiklandi");
+
+        //sepette eklenen urunden 5 tane oldugunu dogrula
+        String firsProd=findByXpathString("//input[@value='1']");
+        asserTextContainsAssertTrue("5", firsProd);
+        extentTest.info("isepette eklenen urunden 5 tane oldugunu dogrulandi");
+
+        //sepeti onayla
+        findByXpathClick("(//a[@href='/sepetim/odeme'])[1]");
+
+        //yeni adres ekle
+        findByXpathClick("(//div[@class='p-add-address-box ty-p-flex-center'])[1]");
+        Faker faker=new Faker();
+        webElementSendKeys("//input[@name='name']", String.valueOf(faker.name().firstName()));
+        webElementSendKeys("//input[@name='surname']", String.valueOf(faker.name().lastName()));
+        webElementSendKeys("//input[@name='phone']", String.valueOf(faker.phoneNumber().cellPhone()));
+        driver.findElement(By.xpath("//input[@name='cityId']")).click();
+
+        WebElement il=findXpathWebelement("//input[@name='name']");
+        Select select=new Select(il);
+
+}
+}

@@ -12,13 +12,13 @@ import java.util.Set;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class C01 extends TestBase {
+public class C01_Erkek_Saat_SporAyakkabi extends TestBase {
 /*
-   "https://www.trendyol.com/" sitesine git
-   sayfanin handle degerini al
-Erkek menusu ustune git
- //saat menüsüne tıkla
-      Casio, Daniel Klein ve Alizee saatlerini sec
+        "https://www.trendyol.com/" sitesine git
+         sayfanin handle degerini al
+        Erkek menusu ustune git
+        saat menüsüne tıkla
+        Casio, Daniel Klein ve Alizee saatlerini sec
         //Doliche ve Longines'in secili olmadigini test et
         //ayakkabi/canta menusune git
         //erkek spor ayakkabi'yi yeni pencerede ac
@@ -38,7 +38,7 @@ Erkek menusu ustune git
         }
 
         //sayfanin handle degerini al
-        String ilkSayfa=driver.getWindowHandle();
+        String ilkSayfa = driver.getWindowHandle();
 
         //Erkek menusu ustune git
         Actions actions = new Actions(driver);
@@ -97,15 +97,15 @@ Erkek menusu ustune git
         //erkek spor ayakkabi'yi yeni pencerede ac
         driver.switchTo().newWindow(WindowType.TAB);
         driver.get("https://www.trendyol.com/erkek-spor-ayakkabi-x-g2-c109");
-        String ikinciSayfa=driver.getWindowHandle();
+        String ikinciSayfa = driver.getWindowHandle();
 
 //onceki pencereye don ve ilk pencerede oldugunu test et
-        Set<String> element=driver.getWindowHandles();
+        Set<String> element = driver.getWindowHandles();
 
-               window(0);
+        window(0);
 
 
-                   assertFalse(ilkSayfa.equals(ikinciSayfa));
+        assertFalse(ilkSayfa.equals(ikinciSayfa));
 
     }
 }

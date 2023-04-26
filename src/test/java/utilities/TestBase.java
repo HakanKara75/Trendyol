@@ -212,20 +212,30 @@ import static org.junit.Assert.assertTrue;
 //             document.querySelector("#example").value; -> CSS DEGERI KULLANILABILIR
         }
 public void moveToElement(String str){
-    Actions actions = new Actions(driver);
     WebElement webElement = driver.findElement(By.xpath(str));
-    actions.moveToElement(webElement).perform();
+    Actions actions = new Actions(driver);
+       actions.moveToElement(webElement).perform();
+
+
 }
 public void assertTrueIsDisplayed(WebElement webElement){
     Assert.assertTrue(webElement.isDisplayed());
 }
 
+       public void assertTrueEquals(String str, String str1){
+           Assert.assertTrue(str.equals(str1));
+       }
        public void assertTrueIsSelected(WebElement webElement){
            Assert.assertTrue(webElement.isSelected());
        }
 
        public void assertTrueIsEnabled(WebElement webElement){
            Assert.assertTrue(webElement.isEnabled());
+       }
+
+       public void webElementSendKeys(String xPath, String sendKeys){
+            driver.findElement(By.xpath(xPath)).sendKeys(sendKeys);
+
        }
     }
 
