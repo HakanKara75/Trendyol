@@ -3,9 +3,13 @@ package test01;
 import com.github.javafaker.Faker;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import utilities.TestBase;
+
+import java.util.List;
 
 public class C05_Teslimat_Adresi extends TestBase {
     //   "https://www.trendyol.com/" sitesine git
@@ -38,8 +42,8 @@ public class C05_Teslimat_Adresi extends TestBase {
         extentTest.info("menunun acildigi dogrulandi");
 
         //uyelik bilgilerini gir
-        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("sssssss@gmail.com");
-        webElementSendKeys("//input[@id='login-password-input']", ",ssssss");
+        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("hakanbatirhan@gmail.com");
+        webElementSendKeys("//input[@id='login-password-input']", ",bbbbb");
         threadSleep(3);
         findByXpathClick("//button[@class='q-primary q-fluid q-button-medium q-button submit']");
         extentTest.info("Uyelik bilgileri girildi");
@@ -56,7 +60,7 @@ public class C05_Teslimat_Adresi extends TestBase {
         //altinci urunden 5 tane sepete ekle
         scrollToElement("(//div[@class='add-to-bs-tx'])[6]");
         for (int i = 1; i <6 ; i++) {
-            threadSleep(2);
+            threadSleep(5);
             findByXpathClick("(//div[@class='add-to-bs-tx'])[6]");
         }
 
@@ -68,7 +72,7 @@ public class C05_Teslimat_Adresi extends TestBase {
         extentTest.info("sepete tiklandi");
 
         //sepette eklenen urunden 5 tane oldugunu dogrula
-        String firsProd=findByXpathString("//input[@value='1']");
+        String firsProd=findByXpathString("//input[@class='counter-content']");
         asserTextContainsAssertTrue("5", firsProd);
         extentTest.info("isepette eklenen urunden 5 tane oldugunu dogrulandi");
 
@@ -80,11 +84,52 @@ public class C05_Teslimat_Adresi extends TestBase {
         Faker faker=new Faker();
         webElementSendKeys("//input[@name='name']", String.valueOf(faker.name().firstName()));
         webElementSendKeys("//input[@name='surname']", String.valueOf(faker.name().lastName()));
-        webElementSendKeys("//input[@name='phone']", String.valueOf(faker.phoneNumber().cellPhone()));
-        driver.findElement(By.xpath("//input[@name='cityId']")).click();
+        WebElement phone=findXpathWebelement("//input[@name='phone']");
 
-        WebElement il=findXpathWebelement("//input[@name='name']");
-        Select select=new Select(il);
+        Actions actions=new Actions(driver);
+        actions.sendKeys(phone, "543321130",Keys.ENTER).perform();
+
+        //il sec
+        WebElement dropdownElement = driver.findElement(By.name("cityId"));
+        dropdownElement.click();
+        WebElement optionElement = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Adıyaman']"));
+        optionElement.click();
+
+        //ilce sec
+        WebElement ilceElement = driver.findElement(By.name("districtId"));
+        ilceElement.click();
+        WebElement optionIlce = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Besni']"));
+        optionIlce.click();
+
+
+        //mahalle sec
+        WebElement mahelleElement = driver.findElement(By.name("neighborhoodId"));
+        mahelleElement.click();
+        WebElement optionMahalle = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Abımıstık Mah (Çakırhüyük Köyü)']"));
+        optionMahalle.click();
+
+
+        //adres gir
+        WebElement adres=findXpathWebelement("//textarea[@name='addressLine']");
+
+        actions.sendKeys(adres, "sdfgşldjfgsdf", Keys.TAB).sendKeys("Hakan", Keys.TAB).perform();
+        findByXpathClick("//button[@type='submit']");
+
+        //Tamam butonuna bas
+        findByXpathClick("//div[@class='otp-success-button']");
+
+        //Kaydet ve Devam Et butonuna bas
+        String odemeSayfasi=driver.getWindowHandle();
+        findByXpathClick("(//button[@class='ty-primary-btn ty-btn-large'])[1]");
+
+        //bir onceki sayfaya don
+        driver.navigate().back();
+
+        //dondugun sayfanin sepetim/odeme sayfasi olmadinigini dogrula
+        String sepet=driver.getWindowHandle();
+        assertTrueEquals(odemeSayfasi,sepet);
+
+        //kapat
 
 }
 }
