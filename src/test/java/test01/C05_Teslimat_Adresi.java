@@ -42,8 +42,8 @@ public class C05_Teslimat_Adresi extends TestBase {
         extentTest.info("menunun acildigi dogrulandi");
 
         //uyelik bilgilerini gir
-        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("hakanbatirhan@gmail.com");
-        webElementSendKeys("//input[@id='login-password-input']", ",bbbbb");
+        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("hhhhhhhhhhh@gmail.com");
+        webElementSendKeys("//input[@id='login-password-input']", "hhhhhhhhhhh");
         threadSleep(3);
         findByXpathClick("//button[@class='q-primary q-fluid q-button-medium q-button submit']");
         extentTest.info("Uyelik bilgileri girildi");
@@ -54,7 +54,8 @@ public class C05_Teslimat_Adresi extends TestBase {
         extentTest.info("supermarket menusu ustune gidildi");
 
         //kedi mamasini tikla
-        findByXpathClick("//a[@href='/kedi-mamasi-x-c103588']");
+        WebElement kediMamasi= findXpathWebelement("//a[@href='/kedi-mamasi-x-c103588']");
+        kediMamasi.click();
         extentTest.info("kedi mamasi tiklandi");
 
         //altinci urunden 5 tane sepete ekle
@@ -72,8 +73,10 @@ public class C05_Teslimat_Adresi extends TestBase {
         extentTest.info("sepete tiklandi");
 
         //sepette eklenen urunden 5 tane oldugunu dogrula
-        String firsProd=findByXpathString("//input[@class='counter-content']");
-        asserTextContainsAssertTrue("5", firsProd);
+        WebElement firsProd=driver.findElement(By.xpath("//input[@value='5']"));
+        String getValue= firsProd.getAttribute("value");
+        System.out.println(getValue);
+        asserTextContainsAssertTrue("5", getValue);
         extentTest.info("isepette eklenen urunden 5 tane oldugunu dogrulandi");
 
         //sepeti onayla
@@ -94,19 +97,21 @@ public class C05_Teslimat_Adresi extends TestBase {
         dropdownElement.click();
         WebElement optionElement = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Adıyaman']"));
         optionElement.click();
+        threadSleep(3);
 
         //ilce sec
         WebElement ilceElement = driver.findElement(By.name("districtId"));
         ilceElement.click();
         WebElement optionIlce = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Besni']"));
         optionIlce.click();
-
+        threadSleep(3);
 
         //mahalle sec
         WebElement mahelleElement = driver.findElement(By.name("neighborhoodId"));
         mahelleElement.click();
         WebElement optionMahalle = driver.findElement(By.xpath("//div[@class='ty-select-option' and text()='Abımıstık Mah (Çakırhüyük Köyü)']"));
         optionMahalle.click();
+        threadSleep(3);
 
 
         //adres gir
