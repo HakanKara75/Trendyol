@@ -24,37 +24,38 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
 
 
     @Test
-    public void test(){
+    public void test() {
 
 //"https://www.trendyol.com/Hesabim/KullaniciBilgileri" adresine git
 
-driver.get("https://www.trendyol.com/Hesabim/KullaniciBilgileri");;
+        driver.get("https://www.trendyol.com/Hesabim/KullaniciBilgileri");
+        ;
 
 //uyelik bilgilerini gir
         threadSleep(2);
-            driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("hhhhh@gmail.com");
-            webElementSendKeys("//input[@id='login-password-input']", "hhhhh");
-            threadSleep(3);
-            findByXpathClick("//button[@class='q-primary q-fluid q-button-medium q-button submit']");
-            extentTest.info("Uyelik bilgileri girildi");
+        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("hhhhh@gmail.com");
+        webElementSendKeys("//input[@id='login-password-input']", "hhhhh");
+        threadSleep(3);
+        findByXpathClick("//button[@class='q-primary q-fluid q-button-medium q-button submit']");
+        extentTest.info("Uyelik bilgileri girildi");
 
 //uyelik bilgilerini guncelle
         //ad gir
-        WebElement ad=findXpathWebelement("//input[@name='firstname']");
+        WebElement ad = findXpathWebelement("//input[@name='firstname']");
         ad.sendKeys("Hakan");
 
         //soyad gir
-        WebElement soyad=findXpathWebelement("//input[@name='lastname']");
+        WebElement soyad = findXpathWebelement("//input[@name='lastname']");
         soyad.sendKeys("Kara");
 
         //telefon bilgisi gir
-        WebElement tel=findXpathWebelement("//input[@name='phone']");
+        WebElement tel = findXpathWebelement("//input[@name='phone']");
         tel.sendKeys("5543321130");
         scrollToElement("//input[@name='phone']");
         threadSleep(2);
 
         //gun sec
-        WebElement gun=findXpathWebelement("//div[@name='birthday']");
+        WebElement gun = findXpathWebelement("//div[@name='birthday']");
         gun.click();
         scrollToElement("(//button[@class='ty-font-w-semi-bold ty-button ty-bordered ty-transition ty-input-large ty-secondary'])[1]");
 
@@ -85,7 +86,6 @@ driver.get("https://www.trendyol.com/Hesabim/KullaniciBilgileri");;
 
         //Güncelle butonuna tikla
         findByXpathClick("(//button[@class='ty-font-w-semi-bold ty-button ty-bordered ty-transition ty-input-large ty-secondary'])[1]");
-
 
 
     }
