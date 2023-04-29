@@ -54,9 +54,11 @@ public class C02_Erkek_Atlet extends TestBase {
         threadSleep(2);
         String arama = aramaSonucu.trim().replaceAll("\\D", "");
         System.out.println(arama);
+        extentTest.info("arama sonuclarindan kac urun ciktigini alindi");
 
         //sol tarafta marka bolumunda Tutku checkbox sec
         findByXpathClick("(//div[@class='fltr-item-text'])[1]");
+        extentTest.info("sol tarafta marka bolumunda Tutku checkbox secildi");
 
         //secim sonuclarindan kac urun ciktigini al
         threadSleep(2);
@@ -65,8 +67,11 @@ public class C02_Erkek_Atlet extends TestBase {
         threadSleep(2);
         String secim = secimSonucu.trim().replaceAll("\\D", "");
         System.out.println(secim);
+        extentTest.info("secim sonuclarindan kac urun ciktigini alindi");
 
+        //secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrula
         Assert.assertNotEquals(arama, secim);
+        extentTest.info("secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrulandi");
 
         //sonuclarda kadin atleti oldugunu dogrula
         List<WebElement>atlet = null;
@@ -86,6 +91,7 @@ public class C02_Erkek_Atlet extends TestBase {
         for (WebElement w : atlet) {
             if (w.getText().contains("kadın") || w.getText().contains("Kadın")) {
                                 webElementScreenShoot(w);
+
                 sayac++;
             }
         }
@@ -93,5 +99,9 @@ public class C02_Erkek_Atlet extends TestBase {
         int size = atlet.size();
         System.out.println("Listin elaman sayisi: " + size);
 
+
+        asserTextContainsAssertTrue(atlet.toString(), "Kadın");
+        extentTest.info("secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrulandi");
+        extentTest.pass("Test sonlandırıldı");
     }
 }
