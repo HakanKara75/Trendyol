@@ -60,7 +60,7 @@ public class C02_Erkek_Atlet extends TestBase {
 
         //secim sonuclarindan kac urun ciktigini al
         threadSleep(2);
-        String secimSonucu = findByXpathString("//*[text()='2376']");
+        String secimSonucu = findByXpathString("//*[text()='\" araması için ']//*");
         System.out.println(secimSonucu);
         threadSleep(2);
         String secim = secimSonucu.trim().replaceAll("\\D", "");
