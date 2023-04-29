@@ -1,5 +1,6 @@
 package test2;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,6 +14,9 @@ import utilities.TestBase;
 
 import java.time.Duration;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 //"https://www.trendyol.com/" sitesine git
 //sayfanin handle degerini al
 //arama kutusuna "erkek atlet" yaz
@@ -40,26 +44,54 @@ public class C02_Erkek_Atlet extends TestBase {
         extentTest.info("sayfanin handle degeri alindi");
 
         //arama kutusuna "erkek atlet" yaz
-        WebElement aramaKutusu=findXpathWebelement("//input[@data-testid='suggestion']");
+        WebElement aramaKutusu = findXpathWebelement("//input[@data-testid='suggestion']");
         aramaKutusu.sendKeys("erkek atlet", Keys.ENTER);
         threadSleep(2);
         extentTest.info("arama kutusuna 'erkek atlet' yazildi");
 
         //arama sonuclarindan kac urun ciktigini al
-        String aramaSonucu=findByXpathString("//div[@class='dscrptn']");
+        String aramaSonucu = findByXpathString("//div[@class='dscrptn']");
         threadSleep(2);
-             int arama =Integer.parseInt(aramaSonucu.trim().replaceAll("\\D", "")) ;
+        String arama = aramaSonucu.trim().replaceAll("\\D", "");
         System.out.println(arama);
 
         //sol tarafta marka bolumunda Tutku checkbox sec
         findByXpathClick("(//div[@class='fltr-item-text'])[1]");
 
         //secim sonuclarindan kac urun ciktigini al
-        String secimSonucu=findByXpathString("//div[@class='dscrptn']//h1");
         threadSleep(2);
-        int secim =Integer.parseInt(secimSonucu.trim().replaceAll("\\D", "")) ;
-        System.out.println(arama);
+        String secimSonucu = findByXpathString("//*[text()='2376']");
+        System.out.println(secimSonucu);
+        threadSleep(2);
+        String secim = secimSonucu.trim().replaceAll("\\D", "");
+        System.out.println(secim);
 
+        Assert.assertNotEquals(arama, secim);
+
+        //sonuclarda kadin atleti oldugunu dogrula
+        List<WebElement>atlet = null;
+
+        try {
+            for (int i = 0; i < 50; i++) {
+            atlet= driver.findElements(By.xpath("//div[@class='p-card-wrppr with-campaign-view']"));
+                pageDown();
+
+            }
+        }catch (Exception e) {
+
+        }
+
+
+        int sayac = 0;
+        for (WebElement w : atlet) {
+            if (w.getText().contains("kadın") || w.getText().contains("Kadın")) {
+                                webElementScreenShoot(w);
+                sayac++;
+            }
+        }
+        System.out.println("Listelenen ürünlerde " + sayac + " adet Kadın ürünü var");
+        int size = atlet.size();
+        System.out.println("Listin elaman sayisi: " + size);
 
     }
 }
