@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
-//"https://www.trendyol.com/Hesabim/KullaniciBilgileri" adresine git
+//"https://www.trendyol.com/Hesabim/KullaniciBilgileri" sayfasina git
     //uyelik bilgilerini gir
 //uyelik bilgilerini guncelle
     //soyad gir
@@ -23,13 +23,15 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
     //Güncelle butonuna tikla
 
 
+
     @Test
     public void test() {
 
-//"https://www.trendyol.com/Hesabim/KullaniciBilgileri" adresine git
+        extentTest = extentReports.createTest("ExtentTest", "Trendyol Kullanici Bilgileri Test Raporu");
+        //   "https://www.trendyol.com/Hesabim/KullaniciBilgileri" sayfasina git
 
         driver.get("https://www.trendyol.com/Hesabim/KullaniciBilgileri");
-        ;
+         extentTest.info("Trendyol sayfasına gidildi");
 
 //uyelik bilgilerini gir
         threadSleep(2);
@@ -43,16 +45,19 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
         //ad gir
         WebElement ad = findXpathWebelement("//input[@name='firstname']");
         ad.sendKeys("Hakan");
+        extentTest.info("uyelik bilgileri guncellendi");
 
         //soyad gir
         WebElement soyad = findXpathWebelement("//input[@name='lastname']");
         soyad.sendKeys("Kara");
+        extentTest.info("soyad girildi");
 
         //telefon bilgisi gir
         WebElement tel = findXpathWebelement("//input[@name='phone']");
         tel.sendKeys("5543321130");
         scrollToElement("//input[@name='phone']");
         threadSleep(2);
+        extentTest.info("telefon bilgisi girildi");
 
         //gun sec
         WebElement gun = findXpathWebelement("//div[@name='birthday']");
@@ -62,6 +67,7 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
         WebElement gunOption = driver.findElement(By.xpath("//div[@class='ty-select-option']/div[text()='1']"));
         gunOption.click();
         threadSleep(2);
+        extentTest.info("gun secildi");
 
         //ay sec
         WebElement ay = driver.findElement(By.xpath("//div[@name='birthmonth']"));
@@ -71,6 +77,7 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
         List<WebElement> options = ay.findElements(By.xpath(".//div[@class='ty-select-option']"));
         WebElement option3 = options.get(2);
         option3.click();
+        extentTest.info("ay secildi");
 
         //yil sec
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
@@ -83,10 +90,11 @@ public class C06_Kullanici_Bilgileri_Guncelle extends TestBase {
             threadSleep(2);
             element.click();
         }
+        extentTest.info("yil secildi");
 
         //Güncelle butonuna tikla
         findByXpathClick("(//button[@class='ty-font-w-semi-bold ty-button ty-bordered ty-transition ty-input-large ty-secondary'])[1]");
-
-
+        extentTest.info("Güncelle butonuna tiklandi");
+                extentTest.pass("Test sonlandırıldı");
     }
 }

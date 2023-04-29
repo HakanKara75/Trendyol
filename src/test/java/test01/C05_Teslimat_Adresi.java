@@ -134,7 +134,6 @@ public class C05_Teslimat_Adresi extends TestBase {
         String sepet=driver.getWindowHandle();
         assertTrueEquals(odemeSayfasi,sepet);
 
-        //kapat
 
 }
 }

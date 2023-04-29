@@ -82,5 +82,6 @@ public class C04_Sepetim extends TestBase {
         String firsProd=findByXpathString("//input[@value='1']");
         asserTextContainsAssertTrue("1", firsProd);
         extentTest.info("isepette eklenen urunden 1 tane oldugunu dogrulandi");
+        extentTest.pass("Test sonlandırıldı");
     }
 }

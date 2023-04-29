@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -235,6 +236,18 @@ public void assertTrueIsDisplayed(WebElement webElement){
 
        public void webElementSendKeys(String xPath, String sendKeys){
             driver.findElement(By.xpath(xPath)).sendKeys(sendKeys);
+
+       }
+
+       public void switchToHhandle( String firstPage){
+             firstPage=driver.getWindowHandle();
+            Set<String> pagesHandles=driver.getWindowHandles();
+            for (String str: pagesHandles){
+                if(!str.equals(firstPage)){
+                    driver.switchTo().window(str);
+
+                }
+            }
 
        }
     }
