@@ -12,7 +12,7 @@ import utilities.TestBase;
 import java.time.Duration;
 import java.util.List;
 
-public class C01_CheckBox_Secme extends TestBase {
+public class C01_Sozlesme_Formlar extends TestBase {
     /*
         "https://www.trendyol.com/" sitesine git
          sayfanin handle degerini al
@@ -22,6 +22,14 @@ public class C01_CheckBox_Secme extends TestBase {
         //solda marka bolumunde Puma markasini sec
         //en sondaki cuzdani sec
         //sayfanin resmini al
+        //sayfanin resmini al
+        //urunu sepete ekle
+        //sepete git butonunu tikla
+        //sepetim menusune git
+        //Sepeti Onayla butonuna bas
+        //uyelik bilgilerini gir
+        //Kaydet ve Dema Et butonunu tikla
+        //Sözleşme ve formlar bölümünün görünürlüğünü test et
 güncellenen html kodlarından locate alma ve checkbox seçme çalışması
      */
     @Test
@@ -67,7 +75,7 @@ güncellenen html kodlarından locate alma ve checkbox seçme çalışması
         }
         extentTest.info("solda marka bolumunde Puma markasi secildi");
 
-        String firstPage=driver.getWindowHandle();
+        String firstPage = driver.getWindowHandle();
 
         //en sondaki cuzdani sec
         List<WebElement> pumaCuzdan = driver.findElements(By.xpath("//div[@class='prc-cntnr discountedPriceBox']"));
@@ -86,7 +94,7 @@ güncellenen html kodlarından locate alma ve checkbox seçme çalışması
         } catch (TimeoutException e) {
             System.out.println("en sondaki cuzdan secildi");
         }
-threadSleep(2);
+        threadSleep(2);
         findByXpathClick("(//div[@class='prc-cntnr discountedPriceBox'])[" + eleman + "]");
         extentTest.info("Erkek menusu ustune gidildi");
 
@@ -106,12 +114,12 @@ threadSleep(2);
 
         //sepetim menusune git
         threadSleep(2);
-             findByXpathClick("(//p[@class='link-text'])[3]");
+        findByXpathClick("(//p[@class='link-text'])[3]");
         extentTest.info("sepetim menusune gidildi");
 
         //Sepeti Onayla butonuna bas
         threadSleep(2);
-        String odemeSayfasi=driver.getWindowHandle();
+        String odemeSayfasi = driver.getWindowHandle();
         findByXpathClick("(//a[@class='ty-link-btn-primary'])[1]");
         extentTest.info("Sepeti Onayla butonuna basildi");
 
@@ -130,9 +138,9 @@ threadSleep(2);
 
         //Sözleşme ve formlar bölümünün görünürlüğünü test et
         pageDown();
-        String actualSozlesme= findByXpathString("//h1[text()='Sözleşmeler ve Formlar']");
-        String expectedSozlesme= "Sözleşmeler ve Formlar";
-        assertTrueEquals(expectedSozlesme,actualSozlesme);
+        String actualSozlesme = findByXpathString("//h1[text()='Sözleşmeler ve Formlar']");
+        String expectedSozlesme = "Sözleşmeler ve Formlar";
+        assertTrueEquals(expectedSozlesme, actualSozlesme);
         extentTest.info("Sözleşme ve formlar bölümünün görünürlüğü test edildi");
         extentTest.pass("Test sonlandırıldı");
     }
