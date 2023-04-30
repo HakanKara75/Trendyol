@@ -15,7 +15,7 @@ import utilities.TestBase;
 import java.time.Duration;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 //"https://www.trendyol.com/" sitesine git
 //sayfanin handle degerini al
@@ -27,7 +27,7 @@ public class C02_Erkek_Atlet extends TestBase {
 
     @Test
     public void name() {
-        extentTest = extentReports.createTest("ExtentTest", "Trendyol Sözleşme ve Formlar bölümü Test Raporu");
+        extentTest = extentReports.createTest("ExtentTest", "Trendyol Arama Kutusu Test Raporu");
         //"https://www.trendyol.com/" sitesine git
         driver.get("https://www.trendyol.com/");
         try {
@@ -51,9 +51,11 @@ public class C02_Erkek_Atlet extends TestBase {
 
         //arama sonuclarindan kac urun ciktigini al
         String aramaSonucu = findByXpathString("//div[@class='dscrptn']");
+        WebElement aramaSonuc = findXpathWebelement("//div[@class='dscrptn']");
         threadSleep(2);
         String arama = aramaSonucu.trim().replaceAll("\\D", "");
         System.out.println(arama);
+        webElementScreenShoot(aramaSonuc);
         extentTest.info("arama sonuclarindan kac urun ciktigini alindi");
 
         //sol tarafta marka bolumunda Tutku checkbox sec
@@ -61,8 +63,10 @@ public class C02_Erkek_Atlet extends TestBase {
         extentTest.info("sol tarafta marka bolumunda Tutku checkbox secildi");
 
         //secim sonuclarindan kac urun ciktigini al
-        threadSleep(2);
+        threadSleep(3);
         String secimSonucu = findByXpathString("//*[text()='\" araması için ']//*");
+        WebElement secimSonuc = findXpathWebelement("//*[text()='\" araması için ']//*");
+        webElementScreenShoot(secimSonuc);
         System.out.println(secimSonucu);
         threadSleep(2);
         String secim = secimSonucu.trim().replaceAll("\\D", "");
@@ -70,28 +74,27 @@ public class C02_Erkek_Atlet extends TestBase {
         extentTest.info("secim sonuclarindan kac urun ciktigini alindi");
 
         //secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrula
-        Assert.assertNotEquals(arama, secim);
-        extentTest.info("secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrulandi");
+        assertNotEquals(arama, secim);
+        extentTest.info("secim sonucunda urun sayisinin secim oncesi urun sayisi ile ayni olmadigini dogrulandi");
 
-        //sonuclarda kadin atleti oldugunu dogrula
-        List<WebElement>atlet = null;
+        //sonuclarda kadin atleti olmadigini dogrula
+        List<WebElement> atlet = null;
 
         try {
-            for (int i = 0; i < 50; i++) {
-            atlet= driver.findElements(By.xpath("//div[@class='p-card-wrppr with-campaign-view']"));
+            for (int i = 0; i < 100; i++) {
+                atlet= driver.findElements(By.xpath("//div[@class='p-card-wrppr with-campaign-view']"));
                 pageDown();
-
             }
         }catch (Exception e) {
-
         }
 
 
         int sayac = 0;
         for (WebElement w : atlet) {
             if (w.getText().contains("kadın") || w.getText().contains("Kadın")) {
-                                webElementScreenShoot(w);
-
+                webElementScreenShoot(w);
+                System.out.println(w.getText());
+                assertTrue(!w.getText().contains("Kadın"));
                 sayac++;
             }
         }
@@ -99,9 +102,7 @@ public class C02_Erkek_Atlet extends TestBase {
         int size = atlet.size();
         System.out.println("Listin elaman sayisi: " + size);
 
-
-        asserTextContainsAssertTrue(atlet.toString(), "Kadın");
-        extentTest.info("secim sonucunda urun sayisinin secim onceis urun sayisi ile ayni olmadigini dogrulandi");
+        extentTest.info("sonuclarda kadin atleti olmadigi dogrulanamadi");
         extentTest.pass("Test sonlandırıldı");
     }
 }
