@@ -64,6 +64,7 @@ public class C03_Elektronik extends TestBase {
         extentTest.info("Apple secenegini unchecked yapildi. Samsung secildi");
 
         //urun adlarinda "Samsung" oldugunu dogrula
+        System.out.println("---------------------------------------");
         List<WebElement> samsung = driver.findElements(By.xpath("//div[@class='prdct-cntnr-wrppr']"));
 
         for (WebElement w : samsung) {
@@ -71,7 +72,9 @@ public class C03_Elektronik extends TestBase {
             asserTextContainsAssertTrue(w.getText(), "Samsung");
         }
         threadSleep(2);
+
         extentTest.info("urun adlarinda 'Samsung' oldugunu dogrulandi");
+
 
         //Samsung urun adlarinda "Xiaomi" olmadigini dogrula
         List<WebElement> xiaomi = driver.findElements(By.xpath("//div[@class='prdct-cntnr-wrppr']"));
