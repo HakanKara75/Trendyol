@@ -65,9 +65,11 @@ public class C03_Elektronik extends TestBase {
 
         //urun adlarinda "Samsung" oldugunu dogrula
         System.out.println("---------------------------------------");
-        List<WebElement> samsung = driver.findElements(By.xpath("//div[@class='prdct-cntnr-wrppr']"));
+        List<WebElement> samsung = driver.findElements(By.xpath("//div[@class='prdct-desc-cntnr-ttl-w two-line-text']"));
+        threadSleep(2);
 
         for (WebElement w : samsung) {
+
             System.out.println(w.getText());
             asserTextContainsAssertTrue(w.getText(), "Samsung");
         }
@@ -77,16 +79,17 @@ public class C03_Elektronik extends TestBase {
 
 
         //Samsung urun adlarinda "Xiaomi" olmadigini dogrula
-        List<WebElement> xiaomi = driver.findElements(By.xpath("//div[@class='prdct-cntnr-wrppr']"));
+        List<WebElement> xiaomi = driver.findElements(By.xpath("//span[@class='prdct-desc-cntnr-name hasRatings']"));
 
-        for (WebElement w : samsung) {
-            System.out.println(w.getText());
-            webElementScreenShoot(w);
-            assertFalse(!w.getText().contains("Xiaomi") );
+        for (WebElement w : xiaomi) {
+           assertFalse(w.getText().contains("Xiaomi") );
+            if(w.getText().contains("Xiaomi")){
+                webElementScreenShoot(w);
+            }
 
         }
         threadSleep(2);
-        extentTest.info("Samsung urun adlarinda 'Xiaomi' olmadigi dogrulanamadi");
+        extentTest.info("Samsung urun adlarinda 'Xiaomi' olmadigi dogrulandi");
         extentTest.pass("Test sonlandırıldı");
     }
 }

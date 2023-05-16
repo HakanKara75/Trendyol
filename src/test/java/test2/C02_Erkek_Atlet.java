@@ -77,7 +77,7 @@ public class C02_Erkek_Atlet extends TestBase {
         assertNotEquals(arama, secim);
         extentTest.info("secim sonucunda urun sayisinin secim oncesi urun sayisi ile ayni olmadigini dogrulandi");
 
-        //sonuclarda kadin atleti olmadigini dogrula
+        //sonuclarda kadin atleti oldugunu dogrula
         List<WebElement> atlet = null;
 
         try {
@@ -94,7 +94,7 @@ public class C02_Erkek_Atlet extends TestBase {
             if (w.getText().contains("kadın") || w.getText().contains("Kadın")) {
                 webElementScreenShoot(w);
                 System.out.println(w.getText());
-                assertTrue(!w.getText().contains("Kadın"));
+                assertFalse(w.getText().contains("Kadın"));
                 sayac++;
             }
         }
@@ -102,7 +102,7 @@ public class C02_Erkek_Atlet extends TestBase {
         int size = atlet.size();
         System.out.println("Listin elaman sayisi: " + size);
 
-        extentTest.info("sonuclarda kadin atleti olmadigi dogrulanamadi");
+        extentTest.info("sonuclarda kadin atleti oldugu dogrulandi");
         extentTest.pass("Test sonlandırıldı");
     }
 }

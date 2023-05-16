@@ -98,43 +98,69 @@ import static org.junit.Assert.assertTrue;
             return location;
         }
 
+       /**
+        @param str elementi xpath verilerek bu metot ile tiklanir
+        */
         public void findByXpathClick(String str) {
             driver.findElement(By.xpath(str)).click();
         }
-
+       /**
+        @param str elementi id verilerek bu metot ile tiklanir
+        */
         public void findByIdClick(String str) {
             driver.findElement(By.id(str)).click();
         }
 
-        public WebElement findByIdWebelement(String str) {
-            WebElement w = driver.findElement(By.id(str));
-            return w;
-        }
+       /** bu metot girilen id locati ile webelement olusturur
+        * @param str olarak id locati girilmeli
+        */
+       public static WebElement findByIdWebelement(String str) {
+           WebElement w = driver.findElement(By.id(str));
+           return w;
+       }
 
-        public void pageDown() {
-            Actions actions = new Actions(driver);
-            actions.sendKeys(Keys.PAGE_DOWN).perform();
-        }
+       /**
+        bu metot ekrani bir masue tekeri donmesi kadar asagi kaydirir
+        */
+       public static void pageDown() {
+           Actions actions = new Actions(driver);
+           actions.sendKeys(Keys.PAGE_DOWN).perform();
+       }
 
+       /**
+        bu metot ekrani bir masue tekeri donmesi kadar yukari kaydirir
+        */
         public void pageUp() {
             Actions actions = new Actions(driver);
             actions.sendKeys(Keys.PAGE_UP).perform();
         }
 
+       /**
+        bu metot ekrani bir tik asagi kaydirir
+        */
         public void arrowDown() {
             Actions actions = new Actions(driver);
             actions.sendKeys(Keys.ARROW_DOWN).perform();
         }
 
+       /**
+        bu metot ekrani bir tik yukari kaydirir
+        */
         public void arrowUp() {
             Actions actions = new Actions(driver);
             actions.sendKeys(Keys.ARROW_UP).perform();
         }
 
-        public void assertDisplayedWebelement(WebElement a) {
-            assertTrue(a.isDisplayed());
+       /** bu metot webelementin gorunur oldugunu dogrulamak icindir
+        @param  webElement girilecek olan webelementdir
+        */
+        public void assertDisplayedWebelement(WebElement webElement) {
+            assertTrue(webElement.isDisplayed());
         }
 
+       /**bu metot sayfayi girilen string degerindeki elemente goturur
+        * @param str girilmesi gereken elementin locatinin string halidir
+        */
         public void scrollToElement(String str) {
             WebElement bottom = driver.findElement(By.xpath(str));
             Actions actions = new Actions(driver);
@@ -142,6 +168,19 @@ import static org.junit.Assert.assertTrue;
             //bu kod locati alinan elemana kadar sayfayi asagi goturur
         }
 
+       /**
+        * @param element girilmesi gereken locatidir
+       bu metot sayfayi girilen elemente goturur
+        */
+       public static void scrollToElementWithWebElement(WebElement element) {
+           WebElement bottom = element;
+           Actions actions = new Actions(driver);
+           actions.scrollToElement(bottom).perform();
+       }
+
+       /**
+        bu metot ile tum sayfanin screenshot i alinir
+        */
         public static void tumSayfaScreenShoot() {
             String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
             String dosyaYolu = "TestOutput/screenshot" + tarih + ".png";
@@ -153,7 +192,10 @@ import static org.junit.Assert.assertTrue;
             }
         }
 
-        //WebElement ScreenShot
+       /**
+        bu metot ile webelementin screenshot i alinir
+        @param element girilmesi gereken locate dir
+        */
         public static void webElementScreenShoot(WebElement element) {
             String tarih = new SimpleDateFormat("_hh_mm_ss_ddMMyyyy").format(new Date());
             String dosyaYolu = "TestOutput/webElementScreenshot" + tarih + ".png";
@@ -164,16 +206,27 @@ import static org.junit.Assert.assertTrue;
             }
         }
 
+       /**
+        bu metot ile acilan ilk pencereye donulur
+        @param sayi girilmesi gereken gecilecek pencerenin indexidir
+        */
         public static void switchToWindow(int sayi) {
             List<String> tumWindowHandles = new ArrayList<String>(driver.getWindowHandles());
             driver.switchTo().window(tumWindowHandles.get(sayi));
         }
 
-        //SwitchToWindow2
+       /**
+        bu metot ile acilan pencereye gecilir
+        @param sayi girilmesi gereken gecilecek pencerenin indexidir
+        */
         public static void window(int sayi) {
             driver.switchTo().window(driver.getWindowHandles().toArray()[sayi].toString());
         }
-        //bu metot ile herhangi bir webelemente JavascriptExecutor kullanarak tiklayabilirim
+
+       /**
+        bu metot ile herhangi bir webelemente JavascriptExecutor kullanarak tiklayabilirim
+        @param webElement girilmesi gereken locate dir
+        */
         public void clickByJavaScript(WebElement webElement){
             JavascriptExecutor jse= (JavascriptExecutor) driver;
 
@@ -187,13 +240,28 @@ import static org.junit.Assert.assertTrue;
 
         }
 
-        //bu metot ile sayfayi en alta kaydirabilirim
+       /**
+        bu metot javascript kodu ile sayfayi en alta goturur
+        */
         public void scrollEndByJavaScript(){
             JavascriptExecutor js= (JavascriptExecutor) driver;
             js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
         }
 
-        //bu metot ile sayfayi en yukari kaydirabilirim
+       /**
+        * bu metot javascript kodu ile elemente string gonderir(java sendkey() ile ayni)
+        @param webElement girilmesi gereken locate dir
+        @param string locate gonderilecek olan deger
+        */
+       public static void sendKeyWithJavaScript(String string, WebElement webElement) {
+           JavascriptExecutor jse = (JavascriptExecutor) driver;//Casting
+           jse.executeScript("arguments[0].value = '"+string+"';", webElement);
+
+       }
+
+       /**
+        bu metot javascript kodu ile sayfayi en yukari goturur
+        */
         public void scrollTopByJavaScript(){
             JavascriptExecutor js= (JavascriptExecutor) driver;
             js.executeScript("window.scrollTo(0, -document.body.scrollHeight);");
@@ -204,7 +272,11 @@ import static org.junit.Assert.assertTrue;
             js.executeScript("arguments[0].setAttribute('value', '"+str+"')", webElement);
         }
 
-        //bu metot ile attribute degerleri ile texti alabilirim
+       /**
+        @param id girilmesi gereken id degeri
+        @param attributeName gonderilmesi gereken attribute ismi
+        bu metot ile girilen attribute degerleri ile texti alabilirim
+        */
         public String getValueByJavaScript(String id, String attributeName){
             JavascriptExecutor js= (JavascriptExecutor) driver;
             String string= js.executeScript("return document.getElementById('"+id+"')."+attributeName+"").toString();
@@ -214,6 +286,11 @@ import static org.junit.Assert.assertTrue;
 //             document.querySelector(".example").value; -> CSS DEGERI KULLANILABILIR
 //             document.querySelector("#example").value; -> CSS DEGERI KULLANILABILIR
         }
+
+       /**
+        bu metot ile mause element ustunde bekletilir
+        @param str xpath olarak girilmesi gereken locate'in text halidir
+        */
 public void moveToElement(String str){
     WebElement webElement = driver.findElement(By.xpath(str));
     Actions actions = new Actions(driver);
@@ -221,26 +298,40 @@ public void moveToElement(String str){
 
 
 }
+       /** bu metot webelementin gorunur oldugunu dogrulamak icindir
+        @param  webElement girilecek olan webelementdir
+        */
 public void assertTrueIsDisplayed(WebElement webElement){
     Assert.assertTrue(webElement.isDisplayed());
 }
-
+       /** Bu metot iki string degerin birbirine equal olup olmadigini dogrular
+        @param str girilecek 1. metindir
+        @param str1 girilecek 2. metindir
+        */
        public void assertTrueEquals(String str, String str1){
            Assert.assertTrue(str.equals(str1));
        }
+
+       /**Bu metot bir webelementin secili olup olmadigini dogrular
+        *  @param webElement girilecek webelement dir.
+        */
        public void assertTrueIsSelected(WebElement webElement){
            Assert.assertTrue(webElement.isSelected());
        }
 
-       public void assertTrueIsEnabled(WebElement webElement){
-           Assert.assertTrue(webElement.isEnabled());
-       }
-
+       /** Bu metot xpath ile alinan locate sendkey gonderir
+        * @param xPath buraya elementin xpath locati verilecek
+        * @param sendKeys buraya elemente dongerilecek metin girilecek
+        */
        public void webElementSendKeys(String xPath, String sendKeys){
-            driver.findElement(By.xpath(xPath)).sendKeys(sendKeys);
+          driver.findElement(By.xpath(xPath)).sendKeys(sendKeys);
 
        }
 
+       /**
+        * Bu metot ile pencere degistirilir. ikinci pencereye gecilir.
+        * @param firstPage parametresine ilk pencerenin handle degeri girilir.
+        */
        public void switchToHhandle( String firstPage){
              firstPage=driver.getWindowHandle();
             Set<String> pagesHandles=driver.getWindowHandles();
