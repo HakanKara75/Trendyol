@@ -420,7 +420,7 @@ import static org.junit.Assert.assertTrue;
        public static void assertIsEnabled(String str){
            JavascriptExecutor js = (JavascriptExecutor) driver;
            WebElement webElement = (WebElement) js.executeScript("return "+str+"");
-           AssertJUnit.assertTrue(webElement.isEnabled());
+           Assert.assertTrue(webElement.isEnabled());
        }
 
        /**
