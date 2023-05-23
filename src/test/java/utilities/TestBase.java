@@ -10,8 +10,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -330,7 +328,14 @@ import static org.junit.Assert.assertTrue;
            String location = driver.findElement(By.xpath(str)).getText();
            return location;
        }
-
+       /**
+        * @param str olarak xpath locati girilmeli
+        *            bu metot girilen xpath locati ile webelement olusturur
+        */
+       public static WebElement findXpathWebelement(String str) {
+           WebElement element = driver.findElement(By.xpath(str));
+           return element;
+       }
        /** bu metot girilen id locati ile webelement olusturur
         * @param str olarak id locati girilmeli
         */

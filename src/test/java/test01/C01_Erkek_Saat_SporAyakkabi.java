@@ -102,7 +102,7 @@ public class C01_Erkek_Saat_SporAyakkabi extends TestBase {
 //onceki pencereye don ve ilk pencerede oldugunu test et
         Set<String> element = driver.getWindowHandles();
 
-        window(0);
+        switchToWindow1(0);
 
 
         assertFalse(ilkSayfa.equals(ikinciSayfa));
