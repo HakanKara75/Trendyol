@@ -464,6 +464,20 @@ import static org.junit.Assert.assertTrue;
            }
 
        }
+
+       /**
+        * Bu metot Action class kullanarak bir webelementin ustune gidip bekler
+        * @param element yerine webelement'in locate koyulmalidir
+        */
+       public static void moveToElementWithAction(WebElement element){
+           Actions action = new Actions(Driver.getDriver());
+           action.moveToElement(element).perform();
+           try {
+               Thread.sleep(3000);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
        //*[contains(@name,'q')]
        //*[contains(@title,'Ara')]
        //*[contains(@maxlength,'2048')]
