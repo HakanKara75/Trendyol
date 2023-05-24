@@ -470,7 +470,7 @@ import static org.junit.Assert.assertTrue;
         * @param element yerine webelement'in locate koyulmalidir
         */
        public static void moveToElementWithAction(WebElement element){
-           Actions action = new Actions(Driver.getDriver());
+           Actions action = new Actions(driver);
            action.moveToElement(element).perform();
            try {
                Thread.sleep(3000);
